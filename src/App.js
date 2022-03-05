@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Counter from "../src/components/Counter";
+
+export const ThemeContext = React.createContext();
 
 function App() {
+  const [theme, setTheme] = useState("red");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <ThemeContext.Provider value={{ backgroundColor: theme }}>
+      <div className="App">
+        <Counter />
+        <button
+          onClick={() =>
+            setTheme((prevTheme) => {
+              return prevTheme === "red" ? "blue" : "red";
+            })
+          }
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          Toggle color
+        </button>
+      </div>
+    </ThemeContext.Provider>
   );
 }
 
